@@ -1,4 +1,167 @@
-*{
+* {
     margin: 0;
     padding: 0;
+}
+
+:root {
+    --background: rgba(255, 255, 255, 1);
+    --foreground: rgba(3, 7, 18, 1);
+    --border: rgba(215, 219, 226, 0.658);
+}
+
+.header {
+    height: 70px;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 8px;
+    border: 4px solid var(--border);
+    background-color: var(--background);
+}
+
+.header img {
+    height: 60px;
+    width: 60px;
+}
+
+.header h1 {
+    font-size: 50px;
+}
+
+.dashbord {
+    display: flex;
+    height: 170px;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px 0px;
+}
+
+.total {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    width: 30vw;
+    background-color: var(--background);
+    border-radius: 10px;
+    padding: 20px;
+    border: 4px solid var(--border);
+}
+
+.total h3 {
+    font-size: 40px;
+}
+
+.total h1 {
+    font-size: 50px;
+}
+
+.total img {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 30px;
+    width: 30px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+
+
+/* ################################## input ################################# */
+
+.input {
+    padding: 0px 18px;
+}
+
+.inp-form {
+    height: 370px;
+    width: calc("100vw" - "36px");
+    background-color: var(--background);
+    padding: 25px;
+    border: 4px solid var(--border);
+    border-radius: 5px;
+}
+
+.inp-form ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+}
+
+.inp-form input, select {
+    width: 400px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+     border: 3px solid var(--border);
+}
+select{
+    height: 55px;
+}
+
+form input[type="text"] {
+    width: 1810px;
+    height: 90px;
+    padding-left: 10px;
+}
+
+.flexx {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+}
+
+.flexx img {
+    height: 40px;
+    width: 40px;
+}
+
+.btn {
+    height: 50px;
+    width: 1825px;
+    color: var(--background);
+    background-color: var(--foreground);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* ################################## search ################################# */
+
+.search-section{
+    padding: 20px 18px;
+}
+.search{
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+    height: 90px;
+    border: 4px solid var(--border);
+    border-radius: 5px;
+    
+}
+.search-inp {
+    height: 50px;
+    width: 1586px;
+    border: 3px solid var(--border);
+    border-radius: 5px;
+    padding: 0px 5px;
+}
+#filter{
+    height: 55px;
+    width: 200px;
+    border: 3px solid var(--border);
+}
+.recent{
+    background-color: red;
 }

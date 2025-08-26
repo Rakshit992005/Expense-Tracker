@@ -1,12 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+    <nav class="header">
+
+        <img src="https://cdn-icons-png.flaticon.com/128/7569/7569474.png" alt="">
+        <h1>Expense Tracker</h1>
+    </nav>
+
+    <main>
+        <section class="dashbord">
+            <div class="total">
+                <h3>Total Balance</h3>
+                <h1>₹<span class="balance">500.00</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/128/592/592015.png" alt="">
+            </div>
+
+            <div class="total">
+                <h3>Total Income</h3>
+                <h1 class="green">₹<span class="income">500.00</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/128/11876/11876402.png" alt="">
+            </div>
+
+            <div class="total">
+                <h3>Total Expense</h3>
+                <h1 class="red">₹<span class="expense">500.00</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/128/6797/6797553.png" alt="">
+            </div>
+        </section>
+
+        <section class="input">
+            <div class="inp-form">
+                <div class="flexx">
+                    <img src="https://cdn-icons-png.flaticon.com/128/992/992651.png" alt="">
+                    <h1>Add Transaction</h1>
+                </div>
+                <h4>Add a new income or expence transaction</h4>
+                <br>
+                <div>
+                    <form action="">
+                        <ul>
+                            <li>Type <br>
+                                <select name="" id="">
+                                    <option disabled selected value="default">Choose Type</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                </select>
+                            </li>
+                            <li>Amount <br>
+                                <input type="number">
+                            </li>
+                            <li>Category <br>
+                                <select name="" id="">
+                                    <option disabled selected value="default">Select Category</option>
+                                    <option value="food">Food</option>
+                                    <option value="travel">Travel</option>
+                                    <option value="bills">Bills</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </li>
+                            <li>Date <br>
+                                <input type="date">
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>Note <br>
+                                <input type="text" name="" id="" placeholder="Add note (optional)">
+                            </li>
+                        </ul>
+                        <button class="btn" value="submit">Add Transaction</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search">
+                <input type="text" class="search-inp" placeholder="Search transaction...">
+                <select name="" id="filter">
+                    <option value="All" disabled selected>All Category</option>
+                    <option value="food">Food</option>
+                    <option value="travel">Travel</option>
+                    <option value="bills">Bills</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="recent">
+            
+        </section>
+    </main>
 </body>
+
 </html>
