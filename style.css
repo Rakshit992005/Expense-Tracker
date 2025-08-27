@@ -163,8 +163,11 @@ form input[type="text"] {
     border: 3px solid var(--border);
 }
 .list{
-    height: 200px;
-    width: calc("100vw" - "36px");
+    display: block;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    width: calc(100vw - 36px);
     padding: 10px;
     margin: 0px 20px;
     border: 3px solid var(--border);
@@ -173,7 +176,7 @@ form input[type="text"] {
 }
 
 .element{
-    background-color: red;
+    background-color: var(--background);
     height: 50px;
     margin: 5px 10px;
     border-radius: 5px;
