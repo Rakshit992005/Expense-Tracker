@@ -31,7 +31,7 @@
 .dashbord {
     display: flex;
     height: 170px;
-    width: 100vw;
+    width: calc("100vw" - "36px");
     align-items: center;
     justify-content: space-evenly;
     padding: 20px 0px;
@@ -43,7 +43,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 120px;
-    width: 30vw;
+    width: 563px;
     background-color: var(--background);
     border-radius: 10px;
     padding: 20px;
@@ -162,6 +162,33 @@ form input[type="text"] {
     width: 200px;
     border: 3px solid var(--border);
 }
-.recent{
+.list{
+    height: 200px;
+    width: calc("100vw" - "36px");
+    padding: 10px;
+    margin: 0px 20px;
+    border: 3px solid var(--border);
+    border-radius: 5px;
+
+}
+
+.element{
     background-color: red;
+    height: 50px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    border: 3px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.in-details{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.in-details img{
+    height: 50px;
 }
