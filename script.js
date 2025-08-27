@@ -64,14 +64,17 @@ function showTranHistory(arr){
     div2.appendChild(span2);
     inDetails.appendChild(div2);
 
-    span4.textContent=i.amount;
+    // span4.classList.add(amo);
     if(i.type == "Income"){
         span4.classList.add("green");
         span4.classList.remove("red");
+        span4.textContent="+"+i.amount;
     }else{
         span4.classList.add("red");
         span4.classList.remove("green");
+        span4.textContent="-"+i.amount;
     }
+    span4.classList.add("font")
     div3.appendChild(span4);
     element.appendChild(div3);
     
@@ -91,8 +94,16 @@ form.addEventListener("submit" , (e)=>{
         note:noteInput.value,
         date: dateInput.value
     }
-    transecction.push(newTra)
+    transecction.unshift(newTra)
     console.log(transecction)
     showTranHistory(transecction);
 })
 
+const search = document.querySelector(".search-inp");
+search.addEventListener("input" , (e)=>{
+    console.log(e);
+     let filterArr = transecction.filter((tran) => {
+                return tran.note.toLowerCase().startsWith(search.value.toLowerCase());
+    });
+    showTranHistory(filterArr);
+});

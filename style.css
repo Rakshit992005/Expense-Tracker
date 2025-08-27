@@ -185,6 +185,7 @@ form input[type="text"] {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    font-size: 25px;
 }
 
 .in-details{
@@ -194,4 +195,10 @@ form input[type="text"] {
 }
 .in-details img{
     height: 50px;
+}
+.amo{
+  font-size: 20px;  
+}
+.font{
+    font-size: 45px;
 }
