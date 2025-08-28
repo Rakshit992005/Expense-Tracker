@@ -25,124 +25,111 @@ let form = document.querySelector('form');
 
 const list = document.querySelector(".list");
 
-function showTranHistory(arr){
-    list.innerHTML="";
+function showTranHistory(arr) {
+    list.innerHTML = "";
     const h = document.createElement("h1");
-    h.textContent ="Transecction History";
+    h.textContent = "Transecction History";
     list.append(h);
     arr.forEach(i => {
-    const element = document.createElement('div');
-    const inDetails = document.createElement('div');
-    const div1 = document.createElement('div');
-    const img = document.createElement('img');
-    const div2 = document.createElement('div');
-    const span1 = document.createElement('span');
-    const br = document.createElement('br');
-    const span2 =document. createElement('span');
-    const span3 = document.createElement('span');
-    const div3 = document.createElement('div');
-    const span4 = document.createElement('span');
+        const element = document.createElement('div');
+        const inDetails = document.createElement('div');
+        const div1 = document.createElement('div');
+        const img = document.createElement('img');
+        const div2 = document.createElement('div');
+        const span1 = document.createElement('span');
+        const br = document.createElement('br');
+        const span2 = document.createElement('span');
+        const span3 = document.createElement('span');
+        const div3 = document.createElement('div');
+        const span4 = document.createElement('span');
 
-    element.classList.add("element")
-    inDetails.classList.add("in-details");
-    element.appendChild(inDetails);
-    
-    img.setAttribute("src" , "https://cdn-icons-png.flaticon.com/128/857/857681.png")
-    div1.appendChild(img);
-    inDetails.appendChild(div1);
+        element.classList.add("element")
+        inDetails.classList.add("in-details");
+        element.appendChild(inDetails);
 
-    span1.classList.add("note");
-    span1.textContent = i.note;
-    div2.appendChild(span1);
-    div2.appendChild(br);
-    
-    span2.classList.add("category");
-    span2.textContent = i.category;
-    span3.classList.add("date");
-    span3.textContent = i.date;
-    span2.appendChild(span3);
-    div2.appendChild(span2);
-    inDetails.appendChild(div2);
+        img.setAttribute("src", "https://cdn-icons-png.flaticon.com/128/857/857681.png")
+        div1.appendChild(img);
+        inDetails.appendChild(div1);
 
-    // span4.classList.add(amo);
-    if(i.type == "Income"){
-        span4.classList.add("green");
-        span4.classList.remove("red");
-        span4.textContent="+"+i.amount;
-    }else{
-        span4.classList.add("red");
-        span4.classList.remove("green");
-        span4.textContent="-"+i.amount;
-    }
-    span4.classList.add("font")
-    div3.appendChild(span4);
-    element.appendChild(div3);
-    
-    list.appendChild(element);
+        span1.classList.add("note");
+        span1.textContent = i.note;
+        div2.appendChild(span1);
+        div2.appendChild(br);
+
+        span2.classList.add("category");
+        span2.textContent = i.category;
+        span3.classList.add("date");
+        span3.textContent = i.date;
+        span2.appendChild(span3);
+        div2.appendChild(span2);
+        inDetails.appendChild(div2);
+
+        // span4.classList.add(amo);
+        if (i.type == "Income") {
+            span4.classList.add("green");
+            span4.classList.remove("red");
+            span4.textContent = "+" + i.amount;
+        } else {
+            span4.classList.add("red");
+            span4.classList.remove("green");
+            span4.textContent = "-" + i.amount;
+        }
+        span4.classList.add("font")
+        div3.appendChild(span4);
+        element.appendChild(div3);
+
+        list.appendChild(element);
 
 
-});
+    });
 }
 
-function dashbord(){
-    let incomeArr  = transecction.filter((tran) =>{
+function dashbord() {
+    let incomeArr = transecction.filter((tran) => {
         return tran.type === "Income";
     })
-    let expenseArr = transecction.filter((tran) =>{
+    let expenseArr = transecction.filter((tran) => {
         return tran.type === "Expense";
     });
-    let exp = 0;
-    let inc = 0;
-    incomeArr.forEach(element => {
-       inc+=parseInt(element.amount); 
-    });
-    expenseArr.forEach(element => {
-       exp+=parseInt(element.amount); 
-    });
+
+    let inc = incomeArr.reduce((sum, t) => sum + parseInt(t.amount), 0);
+    let exp = expenseArr.reduce((sum, t) => sum + parseInt(t.amount), 0);
+
 
     const bal = document.querySelector(".balance");
     const incDashbord = document.querySelector(".income");
     const expDashbord = document.querySelector(".expense");
-    let balance =  inc-exp;
-    bal.textContent =balance;
+    let balance = inc - exp;
+    bal.textContent = balance;
     incDashbord.textContent = inc;
     expDashbord.textContent = exp;
-    if(balance === 0){
-        bal.classList.remove("green");
-        bal.classList.remove("red");
-    }
-    else  if(balance >0){
-        bal.classList.add("green");
-        bal.classList.remove("red");
-    }else{
-        bal.classList.add("red");
-        bal.classList.remove("green");
-    }
+
+    bal.classList.remove("green", "red");
+    if (balance > 0) bal.classList.add("green");
+    else if (balance < 0) bal.classList.add("red");
 
 }
 dashbord();
 
-form.addEventListener("submit" , (e)=>{
+form.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("add")
-    const newTra={
+    const newTra = {
         type: typeSelect.value,
         amount: amountInput.value,
         category: categorySelect.value,
-        note:noteInput.value,
+        note: noteInput.value,
         date: dateInput.value
     }
     transecction.unshift(newTra)
-    console.log(transecction)
     showTranHistory(transecction);
     dashbord();
 })
 
 const search = document.querySelector(".search-inp");
-search.addEventListener("input" , (e)=>{
+search.addEventListener("input", (e) => {
     console.log(e);
-     let filterArr = transecction.filter((tran) => {
-                return tran.note.toLowerCase().startsWith(search.value.toLowerCase());
+    let filterArr = transecction.filter((tran) => {
+        return tran.note.toLowerCase().startsWith(search.value.toLowerCase());
     });
     showTranHistory(filterArr);
 });
