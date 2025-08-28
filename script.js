@@ -1,5 +1,5 @@
 
-let transecction = new Array();
+let transection = new Array();
 
 
 // Type select
@@ -28,7 +28,7 @@ const list = document.querySelector(".list");
 function showTranHistory(arr) {
     list.innerHTML = "";
     const h = document.createElement("h1");
-    h.textContent = "Transecction History";
+    h.textContent = "transection History";
     list.append(h);
     arr.forEach(i => {
         const element = document.createElement('div');
@@ -43,7 +43,7 @@ function showTranHistory(arr) {
         const div3 = document.createElement('div');
         const span4 = document.createElement('span');
 
-        element.classList.add("element")
+        element.classList.add("element" , "cap")
         inDetails.classList.add("in-details");
         element.appendChild(inDetails);
 
@@ -56,10 +56,10 @@ function showTranHistory(arr) {
         div2.appendChild(span1);
         div2.appendChild(br);
 
-        span2.classList.add("category");
+        span2.classList.add("category" , "cap");
         span2.textContent = i.category;
         span3.classList.add("date");
-        span3.textContent = i.date;
+        span3.textContent = "  "+ i.date;
         span2.appendChild(span3);
         div2.appendChild(span2);
         inDetails.appendChild(div2);
@@ -85,10 +85,10 @@ function showTranHistory(arr) {
 }
 
 function dashbord() {
-    let incomeArr = transecction.filter((tran) => {
+    let incomeArr = transection.filter((tran) => {
         return tran.type === "Income";
     })
-    let expenseArr = transecction.filter((tran) => {
+    let expenseArr = transection.filter((tran) => {
         return tran.type === "Expense";
     });
 
@@ -120,16 +120,33 @@ form.addEventListener("submit", (e) => {
         note: noteInput.value,
         date: dateInput.value
     }
-    transecction.unshift(newTra)
-    showTranHistory(transecction);
+    transection.unshift(newTra)
+    showTranHistory(transection);
     dashbord();
+    categorySelector.selectedIndex = 0;
 })
 
 const search = document.querySelector(".search-inp");
 search.addEventListener("input", (e) => {
+    categorySelector.selectedIndex = 0;
     console.log(e);
-    let filterArr = transecction.filter((tran) => {
+    let filterArr = transection.filter((tran) => {
         return tran.note.toLowerCase().startsWith(search.value.toLowerCase());
     });
     showTranHistory(filterArr);
 });
+
+const categorySelector = document.querySelector("#filter");
+categorySelector.addEventListener("change" ,()=>{
+    let categoryValue = categorySelector.value;
+    console.log(categoryValue)
+   if (categoryValue.toLowerCase() === "all") {
+  showTranHistory(transection);
+} else {
+  let filterArr = transection.filter(
+    tran => tran.category.toLowerCase() === categoryValue.toLowerCase()
+  );
+  showTranHistory(filterArr);
+  
+}
+})
