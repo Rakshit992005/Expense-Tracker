@@ -84,6 +84,44 @@ function showTranHistory(arr){
 });
 }
 
+function dashbord(){
+    let incomeArr  = transecction.filter((tran) =>{
+        return tran.type === "Income";
+    })
+    let expenseArr = transecction.filter((tran) =>{
+        return tran.type === "Expense";
+    });
+    let exp = 0;
+    let inc = 0;
+    incomeArr.forEach(element => {
+       inc+=parseInt(element.amount); 
+    });
+    expenseArr.forEach(element => {
+       exp+=parseInt(element.amount); 
+    });
+
+    const bal = document.querySelector(".balance");
+    const incDashbord = document.querySelector(".income");
+    const expDashbord = document.querySelector(".expense");
+    let balance =  inc-exp;
+    bal.textContent =balance;
+    incDashbord.textContent = inc;
+    expDashbord.textContent = exp;
+    if(balance === 0){
+        bal.classList.remove("green");
+        bal.classList.remove("red");
+    }
+    else  if(balance >0){
+        bal.classList.add("green");
+        bal.classList.remove("red");
+    }else{
+        bal.classList.add("red");
+        bal.classList.remove("green");
+    }
+
+}
+dashbord();
+
 form.addEventListener("submit" , (e)=>{
     e.preventDefault();
     console.log("add")
@@ -97,6 +135,7 @@ form.addEventListener("submit" , (e)=>{
     transecction.unshift(newTra)
     console.log(transecction)
     showTranHistory(transecction);
+    dashbord();
 })
 
 const search = document.querySelector(".search-inp");
