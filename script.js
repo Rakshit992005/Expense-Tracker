@@ -25,12 +25,13 @@ let form = document.querySelector('form');
 
 const list = document.querySelector(".list");
 
-function showTranHistory(arr) {
+function showTranHistory(arr , limit) {
     list.innerHTML = "";
     const h = document.createElement("h1");
     h.textContent = "transection History";
     list.append(h);
-    arr.forEach(i => {
+    for(let j=0;j<limit;j++){
+        const i = arr[j];
         const element = document.createElement('div');
         const inDetails = document.createElement('div');
         const div1 = document.createElement('div');
@@ -81,7 +82,7 @@ function showTranHistory(arr) {
         list.appendChild(element);
 
 
-    });
+    }
 }
 
 function dashbord() {
@@ -121,7 +122,8 @@ form.addEventListener("submit", (e) => {
         date: dateInput.value
     }
     transection.unshift(newTra)
-    showTranHistory(transection);
+    const limit = Math.min(10 , transection.length);
+    showTranHistory(transection ,limit);
     dashbord();
     categorySelector.selectedIndex = 0;
 })
@@ -133,7 +135,7 @@ search.addEventListener("input", (e) => {
     let filterArr = transection.filter((tran) => {
         return tran.note.toLowerCase().startsWith(search.value.toLowerCase());
     });
-    showTranHistory(filterArr);
+    showTranHistory(filterArr , filterArr.length);
 });
 
 const categorySelector = document.querySelector("#filter");
@@ -141,12 +143,12 @@ categorySelector.addEventListener("change" ,()=>{
     let categoryValue = categorySelector.value;
     console.log(categoryValue)
    if (categoryValue.toLowerCase() === "all") {
-  showTranHistory(transection);
+  showTranHistory(transection , transection.length);
 } else {
   let filterArr = transection.filter(
     tran => tran.category.toLowerCase() === categoryValue.toLowerCase()
   );
-  showTranHistory(filterArr);
+  showTranHistory(filterArr  ,filterArr.length);
   
 }
 })
