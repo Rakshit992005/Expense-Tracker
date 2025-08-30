@@ -9,56 +9,61 @@
 </head>
 
 <body>
+    <!-- Header -->
     <nav class="header">
-
-        <img src="https://cdn-icons-png.flaticon.com/128/7569/7569474.png" alt="">
+        <img src="https://cdn-icons-png.flaticon.com/128/7569/7569474.png" alt="Logo">
         <h1>Expense Tracker</h1>
     </nav>
 
     <main>
-        <section class="dashbord">
+        <!-- Dashboard Section -->
+        <section class="dashboard">
             <div class="total">
                 <h3>Total Balance</h3>
-                <h1>₹<span class="balance"></span></h1>
-                <img src="https://cdn-icons-png.flaticon.com/128/592/592015.png" alt="">
+                <h1>₹<span class="balance">0</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/128/592/592015.png" alt="Balance Icon">
             </div>
 
             <div class="total">
                 <h3>Total Income</h3>
-                <h1 class="green">₹<span class="income"></span></h1>
-                <img src="https://cdn-icons-png.flaticon.com/128/11876/11876402.png" alt="">
+                <h1 class="green">₹<span class="income">0</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/128/11876/11876402.png" alt="Income Icon">
             </div>
 
             <div class="total">
                 <h3>Total Expense</h3>
-                <h1 class="red">₹<span class="expense"></span></h1>
-                <img src="https://cdn-icons-png.flaticon.com/128/6797/6797553.png" alt="">
+                <h1 class="red">₹<span class="expense">0</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/128/6797/6797553.png" alt="Expense Icon">
             </div>
         </section>
 
+        <!-- Input Section -->
         <section class="input">
             <div class="inp-form">
                 <div class="flexx">
-                    <img src="https://cdn-icons-png.flaticon.com/128/992/992651.png" alt="">
-                    <h1>Add Transection</h1>
+                    <img src="https://cdn-icons-png.flaticon.com/128/992/992651.png" alt="Form Icon">
+                    <h1>Add Transaction</h1>
                 </div>
-                <h4>Add a new income or expence transaction</h4>
+                <h4>Add a new income or expense transaction</h4>
                 <br>
                 <div>
-                    <form action="">
+                    <form>
                         <ul>
-                            <li>Type <br>
-                                <select name="type" id="">
+                            <li>
+                                Type <br>
+                                <select name="type" id="type">
                                     <option disabled selected value="default">Choose Type</option>
                                     <option value="Income">Income</option>
                                     <option value="Expense">Expense</option>
                                 </select>
                             </li>
-                            <li>Amount <br>
-                                <input type="number">
+                            <li>
+                                Amount <br>
+                                <input type="number" id="amount">
                             </li>
-                            <li>Category <br>
-                                <select name="category" id="">
+                            <li>
+                                Category <br>
+                                <select name="category" id="category">
                                     <option disabled selected value="default">Select Category</option>
                                     <option value="food">Food</option>
                                     <option value="travel">Travel</option>
@@ -67,45 +72,46 @@
                                     <option value="other">Other</option>
                                 </select>
                             </li>
-                            <li>Date <br>
-                                <input type="date">
+                            <li>
+                                Date <br>
+                                <input type="date" id="date">
                             </li>
                         </ul>
                         <ul>
-                            <li>Note <br>
-                                <input type="text" name="" id="" placeholder="Add note (optional)">
+                            <li>
+                                Note <br>
+                                <input type="text" id="note" placeholder="Add note (optional)">
                             </li>
                         </ul>
-                        <button class="btn" value="submit">Add Transaction</button>
+                        <button class="btn" type="submit">Add Transaction</button>
                     </form>
                 </div>
-
             </div>
         </section>
 
+        <!-- Search Section -->
         <section class="search-section">
             <div class="search">
                 <input type="text" class="search-inp" placeholder="Search transaction...">
-                <select name="" id="filter">
-                    <option value="all"  selected>All Category</option>
+                <select id="filter">
+                    <option value="all" selected>All Category</option>
                     <option value="food">Food</option>
                     <option value="travel">Travel</option>
                     <option value="bills">Bills</option>
-                     <option value="income">Income</option>
+                    <option value="income">Income</option>
                     <option value="other">Other</option>
                 </select>
             </div>
         </section>
 
+        <!-- Transaction History -->
         <section class="list">
-            <h1>Transection History</h1>
-
+            <h1>Transaction History</h1>
+            <div class="transaction-list">
+                <!-- Transactions will be added here dynamically -->
             </div>
-
-
         </section>
     </main>
-
 
     <script src="script.js"></script>
 </body>

@@ -1,36 +1,33 @@
-
-let transection = new Array();
-
+let transaction = JSON.parse(localStorage.getItem("transactions")) || [];
 
 // Type select
 let typeSelect = document.querySelector('select[name="type"]');
-
-// Amount input
 let amountInput = document.querySelector('input[type="number"]');
-
-// Category select
 let categorySelect = document.querySelector('select[name="category"]');
-
-// Date input
 let dateInput = document.querySelector('input[type="date"]');
-
-// Note input
 let noteInput = document.querySelector('input[placeholder="Add note (optional)"]');
-
-// Button
 let addBtn = document.querySelector('.btn');
-
-// Whole form
 let form = document.querySelector('form');
-
 const list = document.querySelector(".list");
+const categorySelector = document.querySelector("#filter");
+const search = document.querySelector(".search-inp");
 
-function showTranHistory(arr , limit) {
+// 🔥 Show transaction history
+function showTranHistory(arr, limit) {
     list.innerHTML = "";
     const h = document.createElement("h1");
-    h.textContent = "transection History";
+    h.textContent = "Transaction History";
     list.append(h);
-    for(let j=0;j<limit;j++){
+
+    if (arr.length === 0) {
+        const msg = document.createElement("p");
+        msg.textContent = "No transactions found.";
+        msg.classList.add("empty-msg");
+        list.append(msg);
+        return;
+    }
+
+    for (let j = 0; j < limit; j++) {
         const i = arr[j];
         const element = document.createElement('div');
         const inDetails = document.createElement('div');
@@ -43,12 +40,13 @@ function showTranHistory(arr , limit) {
         const span3 = document.createElement('span');
         const div3 = document.createElement('div');
         const span4 = document.createElement('span');
+        const delBtn = document.createElement("button");
 
-        element.classList.add("element" , "cap")
+        element.classList.add("element", "cap");
         inDetails.classList.add("in-details");
         element.appendChild(inDetails);
 
-        img.setAttribute("src", "https://cdn-icons-png.flaticon.com/128/857/857681.png")
+        img.setAttribute("src", "https://cdn-icons-png.flaticon.com/128/857/857681.png");
         div1.appendChild(img);
         inDetails.appendChild(div1);
 
@@ -57,98 +55,122 @@ function showTranHistory(arr , limit) {
         div2.appendChild(span1);
         div2.appendChild(br);
 
-        span2.classList.add("category" , "cap");
+        span2.classList.add("category", "cap");
         span2.textContent = i.category;
         span3.classList.add("date");
-        span3.textContent = "  "+ i.date;
+        span3.textContent = "  " + i.date;
         span2.appendChild(span3);
         div2.appendChild(span2);
         inDetails.appendChild(div2);
 
-        // span4.classList.add(amo);
-        if (i.type == "Income") {
+        if (i.type === "Income") {
             span4.classList.add("green");
-            span4.classList.remove("red");
             span4.textContent = "+" + i.amount;
         } else {
             span4.classList.add("red");
-            span4.classList.remove("green");
             span4.textContent = "-" + i.amount;
         }
-        span4.classList.add("font")
+        span4.classList.add("font");
         div3.appendChild(span4);
         element.appendChild(div3);
 
+        //  Delete button
+        const delImg = document.createElement("img");
+        delImg.src="https://cdn-icons-png.flaticon.com/128/1214/1214428.png";
+        delBtn.appendChild(delImg);
+        delBtn.classList.add("delete-btn");
+
+
+        delBtn.addEventListener("click", () => {
+            transaction.splice(j, 1);
+            saveData();
+            showTranHistory(transaction, transaction.length);
+            dashboard();
+        });
+        element.appendChild(delBtn);
+
         list.appendChild(element);
-
-
     }
 }
 
-function dashbord() {
-    let incomeArr = transection.filter((tran) => {
-        return tran.type === "Income";
-    })
-    let expenseArr = transection.filter((tran) => {
-        return tran.type === "Expense";
-    });
+//  Dashboard
+function dashboard() {
+    let incomeArr = transaction.filter((tran) => tran.type === "Income");
+    let expenseArr = transaction.filter((tran) => tran.type === "Expense");
 
     let inc = incomeArr.reduce((sum, t) => sum + parseInt(t.amount), 0);
     let exp = expenseArr.reduce((sum, t) => sum + parseInt(t.amount), 0);
 
-
     const bal = document.querySelector(".balance");
-    const incDashbord = document.querySelector(".income");
-    const expDashbord = document.querySelector(".expense");
+    const incDashboard = document.querySelector(".income");
+    const expDashboard = document.querySelector(".expense");
+
     let balance = inc - exp;
     bal.textContent = balance;
-    incDashbord.textContent = inc;
-    expDashbord.textContent = exp;
+    incDashboard.textContent = inc;
+    expDashboard.textContent = exp;
 
     bal.classList.remove("green", "red");
     if (balance > 0) bal.classList.add("green");
     else if (balance < 0) bal.classList.add("red");
-
 }
-dashbord();
 
+//  Save to localStorage
+function saveData() {
+    localStorage.setItem("transactions", JSON.stringify(transaction));
+}
+
+//  Form submit
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+
+    if (!amountInput.value || isNaN(amountInput.value) || amountInput.value <= 0) {
+        alert("Please enter a valid amount!");
+        return;
+    }
+    if (!dateInput.value) {
+        alert("Please select a date!");
+        return;
+    }
+
     const newTra = {
         type: typeSelect.value,
         amount: amountInput.value,
         category: categorySelect.value,
         note: noteInput.value,
         date: dateInput.value
-    }
-    transection.unshift(newTra)
-    const limit = Math.min(10 , transection.length);
-    showTranHistory(transection ,limit);
-    dashbord();
-    categorySelector.selectedIndex = 0;
-})
+    };
 
-const search = document.querySelector(".search-inp");
-search.addEventListener("input", (e) => {
+    transaction.unshift(newTra);
+    saveData();
+    showTranHistory(transaction, transaction.length);
+    dashboard();
+    form.reset();
     categorySelector.selectedIndex = 0;
-    console.log(e);
-    let filterArr = transection.filter((tran) => {
-        return tran.note.toLowerCase().startsWith(search.value.toLowerCase());
-    });
-    showTranHistory(filterArr , filterArr.length);
 });
 
-const categorySelector = document.querySelector("#filter");
-categorySelector.addEventListener("change" ,()=>{
+//  Search by note
+search.addEventListener("input", () => {
+    categorySelector.selectedIndex = 0;
+    let filterArr = transaction.filter((tran) =>
+        tran.note.toLowerCase().startsWith(search.value.toLowerCase())
+    );
+    showTranHistory(filterArr, filterArr.length);
+});
+
+//  Category filter
+categorySelector.addEventListener("change", () => {
     let categoryValue = categorySelector.value;
-    console.log(categoryValue)
-   if (categoryValue.toLowerCase() === "all") {
-  showTranHistory(transection , transection.length);
-} else {
-  let filterArr = transection.filter(
-    tran => tran.category.toLowerCase() === categoryValue.toLowerCase()
-  );
-  showTranHistory(filterArr  ,filterArr.length);
-  
-}
-})
+    if (categoryValue.toLowerCase() === "all") {
+        showTranHistory(transaction, transaction.length);
+    } else {
+        let filterArr = transaction.filter(
+            (tran) => tran.category.toLowerCase() === categoryValue.toLowerCase()
+        );
+        showTranHistory(filterArr, filterArr.length);
+    }
+});
+
+// Initial load
+showTranHistory(transaction, transaction.length);
+dashboard();

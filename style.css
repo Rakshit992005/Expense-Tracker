@@ -28,7 +28,7 @@
     font-size: 50px;
 }
 
-.dashbord {
+.dashboard {
     display: flex;
     height: 170px;
     width: calc("100vw" - "36px");
@@ -207,4 +207,13 @@ form input[type="text"] {
 }
 .date{
     font-size: 20px;
+}
+.delete-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.delete-btn img {
+  width: 20px;
+  height: 20px;
 }
