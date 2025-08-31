@@ -12,6 +12,15 @@ const list = document.querySelector(".list");
 const categorySelector = document.querySelector("#filter");
 const search = document.querySelector(".search-inp");
 
+// list icons
+const icons={
+    food: "https://cdn-icons-png.flaticon.com/128/857/857681.png",
+    travel: "https://cdn-icons-png.flaticon.com/128/854/854996.png",
+    bills: "https://cdn-icons-png.flaticon.com/128/8930/8930243.png",
+    income: "https://cdn-icons-png.flaticon.com/128/1773/1773345.png",
+    other: "https://cdn-icons-png.flaticon.com/128/5501/5501384.png" 
+};
+
 // 🔥 Show transaction history
 function showTranHistory(arr, limit) {
     list.innerHTML = "";
@@ -45,8 +54,7 @@ function showTranHistory(arr, limit) {
         element.classList.add("element", "cap");
         inDetails.classList.add("in-details");
         element.appendChild(inDetails);
-
-        img.setAttribute("src", "https://cdn-icons-png.flaticon.com/128/857/857681.png");
+        img.setAttribute("src", icons[i.category]);
         div1.appendChild(img);
         inDetails.appendChild(div1);
 
