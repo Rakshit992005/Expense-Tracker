@@ -68,6 +68,7 @@
                                     <option value="food">Food</option>
                                     <option value="travel">Travel</option>
                                     <option value="bills">Bills</option>
+                                    <option value="shopping">Shopping</option>
                                     <option value="income">Income</option>
                                     <option value="other">Other</option>
                                 </select>
@@ -98,6 +99,7 @@
                     <option value="food">Food</option>
                     <option value="travel">Travel</option>
                     <option value="bills">Bills</option>
+                    <option value="shopping">Shopping</option>
                     <option value="income">Income</option>
                     <option value="other">Other</option>
                 </select>
@@ -111,8 +113,23 @@
                 <!-- Transactions will be added here dynamically -->
             </div>
         </section>
-    </main>
+        <section class="charts">
+            <div>
+                <h2>Expense Chart</h2>
+                <div class="chart-container">
+                    <canvas id="expenseChart"> </canvas>
+                </div>
+            </div>
+            <div>
+                <h2>7 Days Expense Chart</h2>
+                <div class="chart-container">
+                    <canvas id="7-dayExpense"> </canvas>
+                </div>
+            </div>
+        </section>
 
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 

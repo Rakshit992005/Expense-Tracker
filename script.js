@@ -18,7 +18,8 @@ const icons={
     travel: "https://cdn-icons-png.flaticon.com/128/854/854996.png",
     bills: "https://cdn-icons-png.flaticon.com/128/8930/8930243.png",
     income: "https://cdn-icons-png.flaticon.com/128/1773/1773345.png",
-    other: "https://cdn-icons-png.flaticon.com/128/5501/5501384.png" 
+    other: "https://cdn-icons-png.flaticon.com/128/5501/5501384.png",
+    shopping: "https://cdn-icons-png.flaticon.com/128/743/743131.png"
 };
 
 // 🔥 Show transaction history
@@ -94,6 +95,7 @@ function showTranHistory(arr, limit) {
             saveData();
             showTranHistory(transaction, transaction.length);
             dashboard();
+            updateChart();
         });
         element.appendChild(delBtn);
 
@@ -154,6 +156,7 @@ form.addEventListener("submit", (e) => {
     showTranHistory(transaction, transaction.length);
     dashboard();
     form.reset();
+    updateChart();
     categorySelector.selectedIndex = 0;
 });
 
@@ -179,6 +182,52 @@ categorySelector.addEventListener("change", () => {
     }
 });
 
+
+
+function updateChart() {
+    let categories = ['food', 'travel', 'bills', 'shopping', 'income','other'];
+    let totals = categories.map(cat => {
+        return transaction.filter(t => t.category === cat).reduce((sum, t) => sum + parseInt(t.amount), 0);
+    });
+
+    expenseChart.data.datasets[0].data = totals;
+    expenseChart.update(); // refresh chart
+}
+
+
+const ctx = document.querySelector("#expenseChart");
+
+const expenseChart = new Chart(ctx, {
+    type: 'pie', 
+    data: {
+        labels: ['Food', 'Travel', 'Bills', 'Shopping', 'income','Other'], // categories
+        datasets: [{
+            label: 'Expenses',
+            data: [0, 0, 0, 0, 0, 0], // example values
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(238, 122, 26, 0.7)'
+            ],
+            borderColor: 'white',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
+        }
+    }
+});
+
 // Initial load
 showTranHistory(transaction, transaction.length);
 dashboard();
+updateChart();
