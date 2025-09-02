@@ -13,7 +13,7 @@ const categorySelector = document.querySelector("#filter");
 const search = document.querySelector(".search-inp");
 
 // list icons
-const icons={
+const icons = {
     food: "https://cdn-icons-png.flaticon.com/128/857/857681.png",
     travel: "https://cdn-icons-png.flaticon.com/128/854/854996.png",
     bills: "https://cdn-icons-png.flaticon.com/128/8930/8930243.png",
@@ -85,7 +85,7 @@ function showTranHistory(arr, limit) {
 
         //  Delete button
         const delImg = document.createElement("img");
-        delImg.src="https://cdn-icons-png.flaticon.com/128/1214/1214428.png";
+        delImg.src = "https://cdn-icons-png.flaticon.com/128/1214/1214428.png";
         delBtn.appendChild(delImg);
         delBtn.classList.add("delete-btn");
 
@@ -96,6 +96,7 @@ function showTranHistory(arr, limit) {
             showTranHistory(transaction, transaction.length);
             dashboard();
             updateChart();
+            updateWeeklyChart(transaction);
         });
         element.appendChild(delBtn);
 
@@ -157,6 +158,7 @@ form.addEventListener("submit", (e) => {
     dashboard();
     form.reset();
     updateChart();
+    updateWeeklyChart(transaction);
     categorySelector.selectedIndex = 0;
 });
 
@@ -182,12 +184,15 @@ categorySelector.addEventListener("change", () => {
     }
 });
 
+const today = new Date();
+const d = new Date(today);
+const dateStr = d.toISOString().split("T")[0];
 
 
 function updateChart() {
-    let categories = ['food', 'travel', 'bills', 'shopping', 'income','other'];
+    let categories = ['food', 'travel', 'bills', 'shopping', 'other'];
     let totals = categories.map(cat => {
-        return transaction.filter(t => t.category === cat).reduce((sum, t) => sum + parseInt(t.amount), 0);
+        return transaction.filter(t => t.category === cat && t.date === dateStr).reduce((sum, t) => sum + parseInt(t.amount), 0);
     });
 
     expenseChart.data.datasets[0].data = totals;
@@ -198,12 +203,12 @@ function updateChart() {
 const ctx = document.querySelector("#expenseChart");
 
 const expenseChart = new Chart(ctx, {
-    type: 'pie', 
+    type: 'pie',
     data: {
-        labels: ['Food', 'Travel', 'Bills', 'Shopping', 'income','Other'], // categories
+        labels: ['Food', 'Travel', 'Bills', 'Shopping', 'Other'], // categories
         datasets: [{
             label: 'Expenses',
-            data: [0, 0, 0, 0, 0, 0], // example values
+            data: [0, 0, 0, 0, 0], // example values
             backgroundColor: [
                 'rgba(255, 99, 132, 0.7)',
                 'rgba(54, 162, 235, 0.7)',
@@ -231,3 +236,81 @@ const expenseChart = new Chart(ctx, {
 showTranHistory(transaction, transaction.length);
 dashboard();
 updateChart();
+
+
+function getLast7DaysData(transactions) {
+
+    let labels = [];
+    let data = {
+        inc: [],
+        exp: []
+    };
+
+    for (let i = 6; i >= 0; i--) {
+
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const dateStr = d.toISOString().split("T")[0]; // YYYY-MM-DD
+
+        labels.push(dateStr);
+
+        // sum expenses of this day
+        let totalExp = 0;
+        let totalInc = 0;
+        transactions.forEach(t => {
+            if (t.date === dateStr) {
+                if (t.category !== "income") {
+                    totalExp += parseFloat(t.amount);
+                }
+                else {
+                    totalInc += parseFloat(t.amount);
+                }
+            }
+        });
+
+        data.exp[6 - i] = totalExp;
+        data.inc[6 - i] = totalInc;
+    }
+
+    return { labels, data };
+}
+
+let weeklyChart;
+
+function updateWeeklyChart(transactions) {
+    const { labels, data } = getLast7DaysData(transactions);
+
+    if (weeklyChart) {
+        weeklyChart.destroy(); // destroy old chart
+    }
+
+    const ctx = document.getElementById("7-dayExpense").getContext("2d");
+    weeklyChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Expenses (Last 7 Days)",
+                data: data.exp,
+                backgroundColor: "red",
+                borderColor: "red"
+            },
+            {
+                label: "Income (Last 7 Days)",
+                data: data.inc,
+                backgroundColor: "green",
+                borderColor: "green"
+
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+updateWeeklyChart(transaction);
