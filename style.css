@@ -87,37 +87,69 @@ body{
 }
 
 .inp-form {
-    height: 370px;
-    width: calc("100vw" - "36px");
+    width: calc(100vw - 50px);
     background-color: var(--background);
     padding: 25px;
     border: 4px solid var(--border);
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
+/* container for form fields */
 .inp-form ul {
     list-style: none;
-    display: flex;
-    justify-content: space-between;
-    font-size: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 20px;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
 }
 
-.inp-form input, select {
-    width: 400px;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 5px;
-     border: 3px solid var(--border);
+.inp-form li {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
-select{
+
+.inp-form input,
+.inp-form select {
+    width: 100%; 
+    height: 50px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 3px solid var(--border);
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+.inp-form select {
     height: 55px;
 }
 
+/* Note field (takes full width) */
 form input[type="text"] {
-    width: 1810px;
+    grid-column: 1 / -1; /* span all 4 columns */
+    width: 100%;
     height: 90px;
     padding-left: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
+
+/* Responsive layout */
+@media (max-width: 1024px) {
+    .inp-form ul {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+    }
+}
+
+@media (max-width: 600px) {
+    .inp-form ul {
+        grid-template-columns: 1fr; /* stack vertically on mobile */
+    }
+}
+
 
 .flexx {
     display: flex;
@@ -132,7 +164,7 @@ form input[type="text"] {
 
 .btn {
     height: 50px;
-    width: 1825px;
+    width: 100%;
     color: var(--background);
     background-color: var(--foreground);
     border-radius: 5px;
