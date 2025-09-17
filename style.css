@@ -34,11 +34,10 @@ body{
 
 .dashboard {
     display: flex;
-    height: 170px;
-    width: calc("100vw" - "36px");
     align-items: center;
     justify-content: space-evenly;
     padding: 20px 0px;
+        flex-wrap: wrap;
 }
 
 .total {
@@ -192,11 +191,13 @@ form input[type="text"] {
     border: 3px solid var(--border);
     border-radius: 5px;
     padding: 0px 5px;
+    margin-left: 10px;
 }
 #filter{
     height: 55px;
     width: 200px;
     border: 3px solid var(--border);
+    margin-right: 10px;
 }
 .list{
     display: block;
@@ -261,6 +262,7 @@ form input[type="text"] {
     justify-content: space-evenly;
     margin: 20px;
     padding: 20px;
+    flex-wrap: wrap;
 
 }
 .chart-container {
