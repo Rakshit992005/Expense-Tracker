@@ -27,7 +27,7 @@ Built with **HTML, CSS, and JavaScript**, and powered by **localStorage** for sa
 
 ## 📷 Screenshots
 
-   ![alt text](ExpenseTrackerSS.png)
+   ![alt text](https://github.com/Rakshit992005/Expense-Tracker/blob/main/ExpenseTrackerSS.png?raw=true)
 
 
 ## 📂 Project Structure
