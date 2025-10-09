@@ -44,7 +44,7 @@ expense-tracker/
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/expense-tracker.git
+   git clone https://github.com/Rakshit992005/Expense-Tracker.git
 
 2. Open index.html in your browser.
 
